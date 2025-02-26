@@ -1,13 +1,19 @@
 package main.java.edu.canisius.csc213.project1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.NoSuchElementException;
+
+import java.lang.IllegalArgumentException;
 
 /**
  * Represents a deck of playing cards with a configurable size.
  */
 public class Deck {
-    private final ArrayList<Card> cards = new ArrayList<Card>();
+    private ArrayList<Card> cards = new ArrayList<Card>();
 
+
+    int size;
     /**
      * Creates a deck with a given size.
      * The size must be a multiple of 4 and at most 52.
@@ -16,16 +22,26 @@ public class Deck {
      * @throws IllegalArgumentException if size is invalid.
      */
     public Deck(int size) {
+
         // TODO: Validate size (must be a multiple of 4 and at most 52).
-        if(size % 4 != 0){
-            System.out.println("Invalid size, setting to 24");
-            size = 24;            
+        if(size % 4 != 0 || size == 0){
+            throw new IllegalArgumentException("Invalid deck size");   
         }
 
-        
+        this.size = size;
 
 
         // TODO: Initialize the deck with the correct cards.
+
+        int ranksToMake = size / 4;
+
+        for(int i = 14; i > 14 - ranksToMake; i--){
+            cards.add(new Card(Card.Suit.HEARTS, Card.intRanks.get(i)));
+            cards.add(new Card(Card.Suit.DIAMONDS, Card.intRanks.get(i)));
+            cards.add(new Card(Card.Suit.CLUBS, Card.intRanks.get(i)));
+            cards.add(new Card(Card.Suit.SPADES, Card.intRanks.get(i)));
+        }
+        
     }
 
     /**
@@ -33,6 +49,7 @@ public class Deck {
      */
     public void shuffle() {
         // TODO: Implement shuffle logic.
+            Collections.shuffle(cards);
     }
 
     /**
@@ -43,7 +60,15 @@ public class Deck {
      */
     public Card draw() {
         // TODO: Implement draw logic.
-        return null;
+
+        if(size() == 0){
+            throw new NoSuchElementException("Deck is empty");
+        }
+
+        Card toReturn = cards.get(0);
+        cards.remove(toReturn);
+
+        return toReturn;
     }
 
     /**
@@ -53,6 +78,34 @@ public class Deck {
      */
     public int size() {
         // TODO: Implement size method.
-        return 0;
+        return cards.size();
     }
+
+
+
+// TODO: Override toString() to return a readable format.
+    @Override
+    public String toString() {
+        ArrayList<Card> hearts = new ArrayList<Card>();
+        ArrayList<Card> diamonds = new ArrayList<Card>();
+        ArrayList<Card> clubs = new ArrayList<Card>();
+        ArrayList<Card> spades = new ArrayList<Card>();
+
+        for(Card c : cards){
+            if(c.getSuit() == Card.Suit.HEARTS){ hearts.add(c); }
+            if(c.getSuit() == Card.Suit.DIAMONDS){ diamonds.add(c); }
+            if(c.getSuit() == Card.Suit.CLUBS){ clubs.add(c); }
+            if(c.getSuit() == Card.Suit.SPADES){ spades.add(c); }
+        }
+
+        String toReturn = "";
+        toReturn += "Hearts: " + hearts + "\n";
+        toReturn += "Diamonds: " + diamonds + "\n";
+        toReturn += "Clubs: " + clubs + "\n";
+        toReturn += "Spades: " + spades;
+
+        return toReturn;
+    }
+
+
 }

@@ -15,7 +15,7 @@ public class Card {
         JACK, QUEEN, KING, ACE 
     }
 
-    public Map<Rank, Integer> rankInts = new HashMap<Rank, Integer>(){{
+    public static Map<Rank, Integer> rankInts = new HashMap<Rank, Integer>(){{
         put(Rank.TWO, 2);
         put(Rank.THREE, 3);
         put(Rank.FOUR, 4);
@@ -29,7 +29,22 @@ public class Card {
         put(Rank.QUEEN, 12);
         put(Rank.KING, 13);
         put(Rank.ACE, 14);
+    }};
 
+    public static Map<Integer, Rank> intRanks = new HashMap<Integer, Rank>(){{
+        put(2, Rank.TWO);
+        put(3, Rank.THREE);
+        put(4, Rank.FOUR);
+        put(5, Rank.FIVE);
+        put(6, Rank.SIX);
+        put(7, Rank.SEVEN);
+        put(8, Rank.EIGHT);
+        put(9, Rank.NINE);
+        put(10, Rank.TEN);
+        put(11, Rank.JACK);
+        put(12, Rank.QUEEN);
+        put(13, Rank.KING);
+        put(14, Rank.ACE);
     }};
 
     // TODO: Define private fields for suit and rank.
