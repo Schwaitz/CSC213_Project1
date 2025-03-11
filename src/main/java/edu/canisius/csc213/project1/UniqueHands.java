@@ -69,7 +69,7 @@ public class UniqueHands {
             }
         }
 
-        writeToCSV("./csv/test.csv", toWrite);
+        writeToCSV("unique_hands_results.csv", toWrite);
 
     }
 
