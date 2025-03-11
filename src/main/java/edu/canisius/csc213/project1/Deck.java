@@ -12,8 +12,8 @@ import java.lang.IllegalArgumentException;
 public class Deck {
     private ArrayList<Card> cards = new ArrayList<Card>();
 
-
     int size;
+
     /**
      * Creates a deck with a given size.
      * The size must be a multiple of 4 and at most 52.
@@ -24,24 +24,23 @@ public class Deck {
     public Deck(int size) {
 
         // TODO: Validate size (must be a multiple of 4 and at most 52).
-        if(size % 4 != 0 || size == 0){
-            throw new IllegalArgumentException("Invalid deck size");   
+        if (size % 4 != 0 || size == 0) {
+            throw new IllegalArgumentException("Invalid deck size");
         }
 
         this.size = size;
-
 
         // TODO: Initialize the deck with the correct cards.
 
         int ranksToMake = size / 4;
 
-        for(int i = 14; i > 14 - ranksToMake; i--){
+        for (int i = 14; i > 14 - ranksToMake; i--) {
             cards.add(new Card(Card.Suit.HEARTS, Card.intRanks.get(i)));
             cards.add(new Card(Card.Suit.DIAMONDS, Card.intRanks.get(i)));
             cards.add(new Card(Card.Suit.CLUBS, Card.intRanks.get(i)));
             cards.add(new Card(Card.Suit.SPADES, Card.intRanks.get(i)));
         }
-        
+
     }
 
     /**
@@ -49,8 +48,20 @@ public class Deck {
      */
     public void shuffle() {
         // TODO: Implement shuffle logic.
-            Collections.shuffle(cards);
+        Collections.shuffle(cards);
     }
+
+    public void add(Card c){
+        cards.add(c);
+
+    }
+
+    public void add(Hand h){
+        for(Card c : h.getCards()){
+            cards.add(c);
+        }
+    }
+
 
     /**
      * Draws the top card from the deck.
@@ -61,12 +72,27 @@ public class Deck {
     public Card draw() {
         // TODO: Implement draw logic.
 
-        if(size() == 0){
+        if (size() == 0) {
             throw new NoSuchElementException("Deck is empty");
         }
 
         Card toReturn = cards.get(0);
         cards.remove(toReturn);
+
+        return toReturn;
+    }
+
+    public Hand drawHand(int i) {
+        Hand toReturn = new Hand();
+        for (int j = 0; j < i; j++) {
+            if (size() == 0) {
+                throw new NoSuchElementException("Deck is empty");
+            }
+
+            Card c = cards.get(0);
+            toReturn.add(c);
+            cards.remove(c);
+        }
 
         return toReturn;
     }
@@ -81,9 +107,7 @@ public class Deck {
         return cards.size();
     }
 
-
-
-// TODO: Override toString() to return a readable format.
+    // TODO: Override toString() to return a readable format.
     @Override
     public String toString() {
         ArrayList<Card> hearts = new ArrayList<Card>();
@@ -91,11 +115,19 @@ public class Deck {
         ArrayList<Card> clubs = new ArrayList<Card>();
         ArrayList<Card> spades = new ArrayList<Card>();
 
-        for(Card c : cards){
-            if(c.getSuit() == Card.Suit.HEARTS){ hearts.add(c); }
-            if(c.getSuit() == Card.Suit.DIAMONDS){ diamonds.add(c); }
-            if(c.getSuit() == Card.Suit.CLUBS){ clubs.add(c); }
-            if(c.getSuit() == Card.Suit.SPADES){ spades.add(c); }
+        for (Card c : cards) {
+            if (c.getSuit() == Card.Suit.HEARTS) {
+                hearts.add(c);
+            }
+            if (c.getSuit() == Card.Suit.DIAMONDS) {
+                diamonds.add(c);
+            }
+            if (c.getSuit() == Card.Suit.CLUBS) {
+                clubs.add(c);
+            }
+            if (c.getSuit() == Card.Suit.SPADES) {
+                spades.add(c);
+            }
         }
 
         String toReturn = "";
@@ -106,6 +138,5 @@ public class Deck {
 
         return toReturn;
     }
-
 
 }
