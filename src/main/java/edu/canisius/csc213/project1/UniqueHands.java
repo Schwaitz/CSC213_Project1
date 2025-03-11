@@ -47,6 +47,7 @@ public class UniqueHands {
         // averages. Which is probably another loop!
 
 
+
         for (int i = 0; i < deckSizes.length; i++) {
             for (int j = 0; j < handSizes.length; j++) {
                 for (int k = 0; k < trials; k++) {
@@ -68,7 +69,7 @@ public class UniqueHands {
             }
         }
 
-        writeToCSV("./output/test.csv", toWrite);
+        writeToCSV("./csv/test.csv", toWrite);
 
     }
 
@@ -175,16 +176,25 @@ public class UniqueHands {
     // TODO: Implement calculateTotalUniqueHands()
     public static int calculateTotalUniqueHands(int deckSize, int numCards) {
 
-        int df = deckSize;
+        long df = deckSize;
+
+        //System.out.print(df + " ");
         for (int i = deckSize - 1; i > (deckSize - numCards); i--) {
+            //System.out.print(i + " ");
             df = df * i;
         }
 
-        int nf = numCards;
-        for (int i = numCards - 1; i > 1; i--) {
+        //System.out.println(": " + df);
+
+        long nf = numCards;
+        //ystem.out.print(nf + " ");
+        for (int i = numCards - 1; i >= 1; i--) {
+            //System.out.print(i + " ");
             nf = nf * i;
         }
 
-        return df / nf;
+        //System.out.println(": " + nf);
+
+        return (int) (df / nf);
     }
 }
