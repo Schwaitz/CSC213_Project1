@@ -1,10 +1,9 @@
-
-package edu.canisius.csc213.project1;
+package test.java.edu.canisius.csc213.project1;
 
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import main.java.edu.canisius.csc213.project1.UniqueHands;
+import main.java.edu.canisius.csc213.project1.*;
 
 public class UniqueHandsTest {
 
